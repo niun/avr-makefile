@@ -28,6 +28,9 @@ PROGRAMMER_PORT = usb
 # Compiler command:
 COMPILER = avr-gcc
 
+# Sudo command to gain root privileges for avrdude flashing
+SUDO = sudo
+
 
 # Complete output file prefix:
 OUTFILE = $(OUTDIR)/$(RESULT_NAME)
@@ -108,14 +111,14 @@ clean:
 	rm $(OUTFILE).srec
 
 flash:
-	sudo avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
+	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
 
 fuseflash:
-	sudo avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -u -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -u -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
 
 fusetest:
-	sudo avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -q -q -u -U lfuse:v:$(LFUSE):m -U hfuse:v:$(HFUSE):m -U efuse:v:$(EFUSE):m
+	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -q -q -u -U lfuse:v:$(LFUSE):m -U hfuse:v:$(HFUSE):m -U efuse:v:$(EFUSE):m
 
 flashtest:
-	sudo avrdude -n -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
+	$(SUDO) avrdude -n -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
 
