@@ -93,10 +93,10 @@ $(OUTDIR)/main.o: main.c
 	$(COMPILE) -o $@ $<
 
 $(MOD_OBJS): $(OUTDIR)/%.o: %.c %.h
-	$(COMPILE) -o $@ $<
+	$(COMPILE) -o $@ $*.c
 # Generates for every MOD_OBJ ==>
-# $(OUTDIR)/usart_camstrg.o: usart_camstrg.c usart_camstrg.h
-#   	$(COMPILE) -o $@ usart_camstrg.c usart_camstrg.h
+# $(OUTDIR)/modobj.o: modobj.c modobj.h
+#   	$(COMPILE) -o $@ modobj.c
 
 clean: 
 	rm $(OBJS)
