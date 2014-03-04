@@ -31,6 +31,10 @@ COMPILER = avr-gcc
 # Sudo command to gain root privileges for avrdude flashing
 SUDO = sudo
 
+# Object targets
+MOD_OBJS = $(OUTDIR)/some_object.o
+OBJS = $(OUTDIR)/main.o $(MOD_OBJS)
+
 
 # Complete output file prefix:
 OUTFILE = $(OUTDIR)/$(RESULT_NAME)
@@ -84,9 +88,6 @@ $(OUTFILE).lss: $(OUTFILE).elf
 
 $(OUTFILE).srec: $(OUTFILE).elf
 	avr-objcopy -O srec -R .eeprom -R .fuse -R .lock -R .signature  "$(OUTFILE).elf" "$(OUTFILE).srec"
-
-MOD_OBJS = $(OUTDIR)/usart_camstrg.o
-OBJS = $(OUTDIR)/main.o $(MOD_OBJS)
 
 
 $(OUTFILE).elf: $(OBJS)
