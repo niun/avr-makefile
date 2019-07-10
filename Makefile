@@ -11,12 +11,13 @@ RESULT_NAME = avr_project_name
 OUTDIR = output
 
 # Name of target architecture (as used by avr-gcc, avr-size, avrdude):
+# use the names given by 'avr-gcc --target-help' as avrdude can handle them:
 TARGET = atmega164p
 
 # MCU CPU frequency (in Hz):
 F_CPU = 8000000
 
-# MCU Fuse settings:
+# MCU Fuse settings (see e.g. http://www.engbedded.com/fusecalc/ ):
 HFUSE = 0x99
 LFUSE = 0x46
 EFUSE = 0xFF
@@ -32,8 +33,11 @@ COMPILER = avr-gcc
 SUDO = sudo
 
 # Object targets
-MOD_OBJS = $(OUTDIR)/some_object.o
-OBJS = $(OUTDIR)/main.o $(MOD_OBJS)
+MAIN = main
+MODULES = some_module another_module
+
+MOD_OBJS = $(addprefix $(OUTDIR)/,$(addsuffix .o,$(MODULES)))
+OBJS = $(OUTDIR)/$(MAIN).o $(MOD_OBJS)
 
 
 # Complete output file prefix:
@@ -46,7 +50,7 @@ OPTIMIZATION_SETTINGS = -funsigned-char -funsigned-bitfields -Os -ffunction-sect
 DEBUG_SETTINGS = -gdwarf-2
 
 COMPILE = $(COMPILER) -c -Wall $(TARGET_SETTINGS) $(LANGUAGE_SETTINGS) $(OPTIMIZATION_SETTINGS) $(DEBUG_SETTINGS)
-LINK = $(COMPILER) -Wl,-Map=$(OUTDIR)/$(RESULT_NAME).map -Wl,--start-group  -Wl,--end-group -Wl,--gc-sections -mmcu=$(TARGET)
+LINK = $(COMPILER) -mmcu=$(TARGET) -Wl,-Map=$(OUTDIR)/$(RESULT_NAME).map -Wl,--gc-sections
 
 
 
@@ -93,7 +97,7 @@ $(OUTFILE).srec: $(OUTFILE).elf
 $(OUTFILE).elf: $(OBJS)
 	$(LINK) -o $@ $(OBJS)
 
-$(OUTDIR)/main.o: main.c
+$(OUTDIR)/$(MAIN).o: $(MAIN).c
 	$(COMPILE) -o $@ $<
 
 $(MOD_OBJS): $(OUTDIR)/%.o: %.c %.h

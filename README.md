@@ -7,11 +7,11 @@ Makefile for building and flashing programs for Atmel AVR microcontrollers
 Requirements
 ------------
 
-* posix shell?
 * make
-* avr-gcc
-* binutils-avr (avr-size, avr-objcopy, avr-objdump)
-* avrdude
+* avr-gcc (Debian/Ubuntu package `gcc-avr`)
+* avr-libc (Debian/Ubuntu package `avr-libc`)
+* binutils-avr (avr-size, avr-objcopy, avr-objdump, Debian/Ubuntu package `binutils-avr`)
+* avrdude (Debian/Ubuntu package `avrdude`)
 
 
 Targets
