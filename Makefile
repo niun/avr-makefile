@@ -120,7 +120,7 @@ clean:
 	rm $(OUTFILE).srec
 
 flash:
-	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
+	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -u -U flash:w:$(OUTDIR)/$(RESULT_NAME).hex:a
 
 fuseflash:
 	$(SUDO) avrdude -p $(TARGET) -P $(PROGRAMMER_PORT) -c $(PROGRAMMER) -u -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
