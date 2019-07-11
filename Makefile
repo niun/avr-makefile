@@ -32,9 +32,13 @@ COMPILER = avr-gcc
 # Sudo command to gain root privileges for avrdude flashing
 SUDO = sudo
 
-# Object targets
+# Names of sources / targets:
 MAIN = main
-MODULES = some_module another_module
+# Find *.c files:
+MODULES = $(patsubst %.c,%,$(wildcard *[^$(MAIN)].c))
+# Use this if you want to name your source files explicitely:
+#MODULES = some_module another_module
+
 
 MOD_OBJS = $(addprefix $(OUTDIR)/,$(addsuffix .o,$(MODULES)))
 OBJS = $(OUTDIR)/$(MAIN).o $(MOD_OBJS)
