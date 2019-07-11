@@ -12,15 +12,15 @@ OUTDIR = output
 
 # Name of target architecture (as used by avr-gcc, avr-size, avrdude):
 # use the names given by 'avr-gcc --target-help' as avrdude can handle them:
-TARGET = atmega164p
+TARGET = atmega168
 
 # MCU CPU frequency (in Hz):
 F_CPU = 8000000
 
 # MCU Fuse settings (see e.g. http://www.engbedded.com/fusecalc/ ):
-HFUSE = 0x99
-LFUSE = 0x46
-EFUSE = 0xFF
+HFUSE = 0xdf
+LFUSE = 0xe2
+EFUSE = 0xF9
 
 # avrdude programmer config:
 PROGRAMMER = avrispmkII 
